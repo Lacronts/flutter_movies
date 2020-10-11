@@ -43,13 +43,17 @@ class AppUtils {
     return '';
   }
 
-  static String buildImagePath(String imageName, {EImageSize size = EImageSize.w92}) {
+  static String buildImagePath(String imageName,
+      {EImageSize size = EImageSize.w92}) {
     assert(imageName != null);
+
+    if (imageName.isEmpty) return '';
 
     return '${_sizeToNetworkPath[size]}$imageName';
   }
 
-  static String buildAssetPath({@required EImageSize size, Axis axis = Axis.vertical}) {
+  static String buildAssetPath(
+      {@required EImageSize size, Axis axis = Axis.vertical}) {
     assert(size != null);
 
     if (axis == Axis.horizontal) {

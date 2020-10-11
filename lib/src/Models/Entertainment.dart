@@ -35,7 +35,7 @@ class Entertainment extends Equatable {
       title: json['title'],
       originalTitle: json["original_title"],
       popularity: json['popularity'],
-      posterPath: json['poster_path'],
+      posterPath: json['poster_path'] ?? '',
       adult: json['adult'],
       overview: json['overview'],
       releaseDate: json['release_date'],
@@ -52,7 +52,7 @@ class Entertainment extends Equatable {
       title: json['name'],
       originalTitle: json["original_name"],
       popularity: json['popularity'],
-      posterPath: json['poster_path'],
+      posterPath: json['poster_path'] ?? '',
       adult: json['adult'],
       overview: json['overview'],
       releaseDate: json['first_air_date'],
@@ -64,7 +64,7 @@ class Entertainment extends Equatable {
   }
 
   String getPoster() =>
-      posterPath != null ? AppUtils.buildImagePath(posterPath, size: EImageSize.w92) : null;
+      AppUtils.buildImagePath(posterPath, size: EImageSize.w92);
 
   @override
   List<Object> get props => [

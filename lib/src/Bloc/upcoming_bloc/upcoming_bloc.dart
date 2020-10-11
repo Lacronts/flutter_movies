@@ -30,8 +30,10 @@ class UpcomingBloc extends Bloc<UpcomingEvent, UpcomingState> {
     try {
       final json = await moviesRepository.loadUpcomingMovies();
 
-      final upcomingMovies =
-          json.map((movie) => Entertainment.fromJsonToMovie(movie)).toList();
+      final upcomingMovies = json
+          .map((movie) => Entertainment.fromJsonToMovie(movie))
+          .where((movie) => movie.posterPath.isNotEmpty)
+          .toList();
       yield UpcomingLoadSuccess(movies: upcomingMovies);
     } catch (err) {
       yield UpcomingLoadFailure(err);
@@ -45,8 +47,10 @@ class UpcomingBloc extends Bloc<UpcomingEvent, UpcomingState> {
         final nextPage = currentState.page + 1;
         final json = await moviesRepository.loadUpcomingMovies(page: nextPage);
 
-        final upcomingMovies =
-            json.map((movie) => Entertainment.fromJsonToMovie(movie)).toList();
+        final upcomingMovies = json
+            .map((movie) => Entertainment.fromJsonToMovie(movie))
+            .where((movie) => movie.posterPath.isNotEmpty)
+            .toList();
 
         yield UpcomingLoadSuccess(
           movies: [...currentState.movies, ...upcomingMovies],
